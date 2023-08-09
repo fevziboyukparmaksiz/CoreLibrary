@@ -2,6 +2,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidationApp.Web.FluentValidators;
 using FluentValidationApp.Web.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -18,7 +19,10 @@ builder.Services.AddControllersWithViews().AddFluentValidation(options =>
 });
 //builder.Services.AddSingleton<IValidator<Customer>, CustomerValidator>();
 
-
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
