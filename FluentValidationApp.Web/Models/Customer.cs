@@ -9,7 +9,7 @@
         public DateTime? BirthDate { get; set; }
         public IList<Address> Addresses { get; set; }
         public Gender Gender { get; set; }
-        
+        public CreditCard CreditCard { get; set; }
         public string FullName2()
         {
             return $"{Name} - {Email}- {Age}";

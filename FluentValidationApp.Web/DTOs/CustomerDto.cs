@@ -9,5 +9,7 @@ namespace FluentValidationApp.Web.DTOs
         public string? Eposta { get; set; }
         public int? Yas { get; set; }
         public string FullName { get; set; }
+        public string CCNumber { get; set; }
+        public DateTime CCValidDate { get; set; }
     }
 }

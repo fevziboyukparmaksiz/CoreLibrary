@@ -28,6 +28,15 @@ namespace FluentValidationApp.Web.Controllers
             _mapper = mapper;
         }
 
+        [Route("Mapping")]
+        [HttpGet]
+        public IActionResult Mapping ()
+        {
+            Customer customer = new Customer { Id = 1, Name = "Fevzi", Email = "fevzitest@gmqil.com", Age = 26, CreditCard = new CreditCard { Number = "1245", ValidDate = DateTime.Now } };
+
+            return Ok(_mapper.Map<CustomerDto>(customer));
+        }
+
         // GET: api/CustomersApi
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers()
