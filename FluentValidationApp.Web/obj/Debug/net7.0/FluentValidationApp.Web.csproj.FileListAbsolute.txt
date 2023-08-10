@@ -255,3 +255,5 @@ D:\Fevzi\source\repos\CoreLibrary\FluentValidationApp.Web\bin\Debug\net7.0\Fluen
 D:\Fevzi\source\repos\CoreLibrary\FluentValidationApp.Web\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
 D:\Fevzi\source\repos\CoreLibrary\FluentValidationApp.Web\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
 D:\Fevzi\source\repos\CoreLibrary\FluentValidationApp.Web\obj\Debug\net7.0\FluentValidationApp.Web.MvcApplicationPartsAssemblyInfo.cs
+D:\Fevzi\source\repos\CoreLibrary\FluentValidationApp.Web\bin\Debug\net7.0\AutoMapper.dll
+D:\Fevzi\source\repos\CoreLibrary\FluentValidationApp.Web\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

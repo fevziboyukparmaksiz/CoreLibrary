@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using FluentValidationApp.Web.Models;
 using FluentValidation;
 using FluentValidationApp.Web.FluentValidators;
+using AutoMapper;
+using FluentValidationApp.Web.DTOs;
 
 namespace FluentValidationApp.Web.Controllers
 {
@@ -17,32 +19,36 @@ namespace FluentValidationApp.Web.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IValidator<Customer> _customerValidator;
+        private readonly IMapper _mapper;
 
-        public CustomersApiController(AppDbContext context, IValidator<Customer> customerValidator)
+        public CustomersApiController(AppDbContext context, IValidator<Customer> customerValidator, IMapper mapper)
         {
             _context = context;
             _customerValidator = customerValidator;
+            _mapper = mapper;
         }
 
         // GET: api/CustomersApi
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers()
         {
-          if (_context.Customers == null)
-          {
-              return NotFound();
-          }
-            return await _context.Customers.ToListAsync();
+            var customers = await _context.Customers.ToListAsync();
+
+            if (_context.Customers == null)
+            {
+                return NotFound();
+            }
+            return Ok(_mapper.Map<IEnumerable<CustomerDto>>(customers));
         }
 
         // GET: api/CustomersApi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
-          if (_context.Customers == null)
-          {
-              return NotFound();
-          }
+            if (_context.Customers == null)
+            {
+                return NotFound();
+            }
             var customer = await _context.Customers.FindAsync(id);
 
             if (customer == null)
@@ -90,9 +96,9 @@ namespace FluentValidationApp.Web.Controllers
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
             var result = _customerValidator.Validate(customer);
-            if(!result.IsValid)
+            if (!result.IsValid)
             {
-                return BadRequest(result.Errors.Select(x=> new
+                return BadRequest(result.Errors.Select(x => new
                 {
                     property = x.PropertyName,
                     error = x.ErrorMessage
@@ -100,10 +106,10 @@ namespace FluentValidationApp.Web.Controllers
             }
 
 
-          if (_context.Customers == null)
-          {
-              return Problem("Entity set 'AppDbContext.Customers'  is null.");
-          }
+            if (_context.Customers == null)
+            {
+                return Problem("Entity set 'AppDbContext.Customers'  is null.");
+            }
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
